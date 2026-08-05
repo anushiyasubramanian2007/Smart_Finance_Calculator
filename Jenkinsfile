@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/anushiyasubramanian2007/Smart_Finance_Calculator.git'
+                git 'https://github.com/anushiyasubramanian2007/Smart_Finance_Calculator.git'
             }
         }
 
@@ -27,7 +27,7 @@ pipeline {
 
         stage('Wait for Server') {
             steps {
-                bat 'timeout /t 5'
+                bat 'ping 127.0.0.1 -n 6 > nul'
             }
         }
 
@@ -40,7 +40,7 @@ pipeline {
         stage('Serve Frontend') {
             steps {
                 dir('frontend') {
-                    bat 'start /B npx serve .'
+                    bat 'start index.html'
                 }
             }
         }
