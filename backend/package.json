@@ -1,12 +1,19 @@
 {
-  "name": "smart-finance-calculator",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "Backend for Smart Finance Calculator",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
+    "dev": "node index.js",
     "start": "node server.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
   "dependencies": {
-    "express": "^4.18.2"
+    "cors": "^2.8.6",
+    "expres": "^0.0.5",
+    "express": "^5.2.1"
   }
 }

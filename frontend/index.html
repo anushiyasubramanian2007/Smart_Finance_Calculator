@@ -1,13 +1,97 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Finance Calculator</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+    }
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      margin: 20px auto;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #38bdf8;
+    }
+    input {
+      margin: 5px;
+      padding: 8px;
+      width: 90%;
+    }
+    button {
+      padding: 10px;
+      background: #38bdf8;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>💰 Smart Finance Calculator</h1>
+
+<!-- EMI -->
+<div class="card">
+  <h2>EMI Calculator</h2>
+  <input id="emiP" placeholder="Principal"><br>
+  <input id="emiR" placeholder="Rate"><br>
+  <input id="emiT" placeholder="Years"><br>
+  <button onclick="calculateEMI()">Calculate</button>
+  <p id="emiResult"></p>
+</div>
+
+<!-- Compound Interest -->
+<div class="card">
+  <h2>Compound Interest</h2>
+  <input id="ciP" placeholder="Principal"><br>
+  <input id="ciR" placeholder="Rate"><br>
+  <input id="ciT" placeholder="Years"><br>
+  <button onclick="calculateCI()">Calculate</button>
+  <p id="ciResult"></p>
+</div>
+
+<script>
+const BASE_URL = "http://localhost:5000";
+
+// EMI
+async function calculateEMI() {
+  const res = await fetch(`${BASE_URL}/emi`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      principal: +emiP.value,
+      rate: +emiR.value,
+      time: +emiT.value
+    })
+  });
+
+  const data = await res.json();
+  document.getElementById("emiResult").innerText =
+    "Monthly EMI: ₹" + data.emi.toFixed(2);
+}
+
+// Compound Interest
+async function calculateCI() {
+  const res = await fetch(`${BASE_URL}/compound-interest`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      principal: +ciP.value,
+      rate: +ciR.value,
+      time: +ciT.value
+    })
+  });
+
+  const data = await res.json();
+  document.getElementById("ciResult").innerText =
+    "Total Amount: ₹" + data.amount.toFixed(2);
+}
+</script>
+
+</body>
 </html>
