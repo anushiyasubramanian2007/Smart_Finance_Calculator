@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone Code') {
             steps {
-                git 'https://github.com/anushiyasubramanian2007/Smart_Finance_Calculator.git'
+                git branch: 'main', url: 'https://github.com/anushiyasubramanian2007/Smart_Finance_Calculator.git'
             }
         }
 
